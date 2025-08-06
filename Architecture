@@ -1,0 +1,73 @@
+Vue d’ensemble du fonctionnement du jeu :┌
+
+────────────────────────────┐
+│    Initialisation pygame   │
+│    - Taille écran          │
+│    - FPS / Clock           │
+│    - Création objets       │
+└────────────┬───────────────┘
+             │
+             ▼
+┌────────────────────────────┐
+│      Boucle principale     │
+│                            │
+│ ┌────────────────────────┐ │
+│ │ 1. Événements clavier  │◄┤── Z / S / ↑ / ↓
+│ └────────────────────────┘ │
+│ ┌────────────────────────┐ │
+│ │ 2. Mouvements objets   │◄┤── Paddles et Balle
+│ └────────────────────────┘ │
+│ ┌────────────────────────┐ │
+│ │ 3. Gestion collisions  │◄┤── Balle + Raquettes / Bords
+│ └────────────────────────┘ │
+│ ┌────────────────────────┐ │
+│ │ 4. Mise à jour score   │◄┤── Si balle dépasse bord
+│ └────────────────────────┘ │
+│ ┌────────────────────────┐ │
+│ │ 5. Dessin à l’écran    │
+│ └────────────────────────┘ │
+└────────────┬───────────────┘
+             │
+             ▼
+     pygame.display.flip()
+         clock.tick(FPS)
+
+
+Cycle de vie de la balle:
+
+1. Balle démarre au centre
+       ↓
+2. Se déplace (x, y) automatiquement
+       ↓
+3. Si touche le haut/bas ⇒ rebond vertical (inversion de speed_y)
+       ↓
+4. Si touche raquette ⇒ rebond horizontal (inversion de speed_x)
+       ↓
+5. Si sort à gauche ⇒ score Joueur 2 + reset balle
+   Si sort à droite ⇒ score Joueur 1 + reset balle
+       ↓
+6. Retour au centre (reset), vitesse inversée
+
+
+ Logique de la boucle principale:
+
+Chaque frame :
+- Lire les entrées clavier
+
+- Déplacer les raquettes si touches pressées
+
+- Déplacer la balle
+
+- Gérer les rebonds
+
+- Vérifier les collisions
+
+- Mettre à jour les scores si nécessaire
+
+- Redessiner tout à l’écran
+
+- Attendre la prochaine frame
+
+Logique résumée:
+
+Initialisation → Boucle de jeu → Déplacements → Collisions → Affichage → Score
